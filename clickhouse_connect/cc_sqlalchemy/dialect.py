@@ -43,7 +43,9 @@ class ClickHouseDialect(DefaultDialect):
 
     @staticmethod
     def get_schema_names(connection, **_):
-        return [row.name for row in connection.execute('SHOW DATABASES')]
+        return [row.name for row in connection.execute(
+            text('SHOW DATABASES')
+        )]
 
     @staticmethod
     def has_database(connection, db_name):
@@ -54,7 +56,9 @@ class ClickHouseDialect(DefaultDialect):
         cmd = 'SHOW TABLES'
         if schema:
             cmd += ' FROM ' + quote_identifier(schema)
-        return [row.name for row in connection.execute(cmd)]
+        return [row.name for row in connection.execute(
+            text(cmd)
+        )]
 
     def get_primary_keys(self, connection, table_name, schema=None, **kw):
         return []
