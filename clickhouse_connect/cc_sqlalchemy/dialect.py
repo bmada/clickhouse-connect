@@ -35,7 +35,7 @@ class ClickHouseDialect(DefaultDialect):
 
     # pylint: disable=method-hidden
     @classmethod
-    def dbapi(cls):
+    def import_dbapi(cls):
         return dbapi
 
     def initialize(self, connection):
