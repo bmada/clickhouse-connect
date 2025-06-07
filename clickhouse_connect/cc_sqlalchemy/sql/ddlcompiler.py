@@ -21,4 +21,8 @@ class ChDDLCompiler(DDLCompiler):
 
     def get_column_specification(self, column: Column, **_):
         text = f'{quote_identifier(column.name)} {column.type.compile()}'
+        
+        if column.info and "codec" in column.info:
+            text += f' CODEC{column.info['codec']}'
+            
         return text
